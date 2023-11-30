@@ -1,0 +1,124 @@
+use platepilot; // database name
+
+
++----------------------+
+| Tables_in_platepilot |
++----------------------+
+| Categories           |
+| Clients              |
+| OrderProducts        |
+| Orders               |
+| Products             |
+| SequelizeMeta        |
+| Tables               |
+| Users                |
++----------------------+
+
+desc Categories;
++-----------+--------------+------+-----+-------------------+----------------+
+| Field     | Type         | Null | Key | Default           | Extra          |
++-----------+--------------+------+-----+-------------------+----------------+
+| id        | int(11)      | NO   | PRI | NULL              | auto_increment |
+| name      | varchar(255) | NO   |     | NULL              |                |
+| createdAt | datetime     | NO   |     | CURRENT_TIMESTAMP |                |
+| updatedAt | datetime     | NO   |     | CURRENT_TIMESTAMP |                |
++-----------+--------------+------+-----+-------------------+----------------+
+
+desc Clients;
++-----------+--------------+------+-----+-------------------+----------------+
+| Field     | Type         | Null | Key | Default           | Extra          |
++-----------+--------------+------+-----+-------------------+----------------+
+| id        | int(11)      | NO   | PRI | NULL              | auto_increment |
+| name      | varchar(255) | NO   |     | NULL              |                |
+| address   | varchar(255) | NO   |     | Address           |                |
+| phone     | varchar(255) | NO   |     | 999999999         |                |
+| email     | varchar(255) | NO   | UNI | NULL              |                |
+| dni       | varchar(255) | NO   | UNI | NULL              |                |
+| createdAt | datetime     | NO   |     | CURRENT_TIMESTAMP |                |
+| updatedAt | datetime     | NO   |     | CURRENT_TIMESTAMP |                |
++-----------+--------------+------+-----+-------------------+----------------+
+
+desc OrderProducts;
++-----------+---------+------+-----+---------+----------------+
+| Field     | Type    | Null | Key | Default | Extra          |
++-----------+---------+------+-----+---------+----------------+
+| id        | int(11) | NO   | PRI | NULL    | auto_increment |
+| quantity  | int(11) | YES  |     | NULL    |                |
+| orderId   | int(11) | NO   | MUL | NULL    |                |
+| productId | int(11) | NO   | MUL | NULL    |                |
++-----------+---------+------+-----+---------+----------------+
+
+desc Orders;
++-----------+--------------+------+-----+-------------------+----------------+
+| Field     | Type         | Null | Key | Default           | Extra          |
++-----------+--------------+------+-----+-------------------+----------------+
+| id        | int(11)      | NO   | PRI | NULL              | auto_increment |
+| total     | double       | NO   |     | NULL              |                |
+| isPaid    | tinyint(1)   | NO   |     | 0                 |                |
+| delivery  | tinyint(1)   | NO   |     | 0                 |                |
+| note      | varchar(255) | YES  |     | NULL              |                |
+| userId    | int(11)      | NO   | MUL | NULL              |                |
+| clientId  | int(11)      | NO   | MUL | NULL              |                |
+| tableId   | int(11)      | YES  | MUL | NULL              |                |
+| createdAt | datetime     | NO   |     | CURRENT_TIMESTAMP |                |
+| updatedAt | datetime     | NO   |     | CURRENT_TIMESTAMP |                |
++-----------+--------------+------+-----+-------------------+----------------+
+
+ desc Products;
++------------+--------------+------+-----+-------------------+----------------+
+| Field      | Type         | Null | Key | Default           | Extra          |
++------------+--------------+------+-----+-------------------+----------------+
+| id         | int(11)      | NO   | PRI | NULL              | auto_increment |
+| name       | varchar(255) | NO   |     | NULL              |                |
+| price      | double       | NO   |     | NULL              |                |
+| stock      | int(11)      | NO   |     | NULL              |                |
+| categoryId | int(11)      | NO   | MUL | NULL              |                |
+| createdAt  | datetime     | NO   |     | CURRENT_TIMESTAMP |                |
+| updatedAt  | datetime     | NO   |     | CURRENT_TIMESTAMP |                |
++------------+--------------+------+-----+-------------------+----------------+
+
+desc SequelizeMeta;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| name  | varchar(255) | NO   | PRI | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+select * from SequelizeMeta; //files that are used for migrating tables for Sequelize ORM
++-------------------------+
+| name                    |
++-------------------------+
+| create-category.js      |
+| create-client.js        |
+| create-order-product.js |
+| create-order.js         |
+| create-product.js       |
+| create-table.js         |
+| create-user.js          |
++-------------------------+
+
+
+desc Tables;
++-----------+--------------+------+-----+-------------------+----------------+
+| Field     | Type         | Null | Key | Default           | Extra          |
++-----------+--------------+------+-----+-------------------+----------------+
+| id        | int(11)      | NO   | PRI | NULL              | auto_increment |
+| name      | varchar(255) | YES  |     | NULL              |                |
+| occupied  | tinyint(1)   | YES  |     | 0                 |                |
+| createdAt | datetime     | NO   |     | CURRENT_TIMESTAMP |                |
+| updatedAt | datetime     | NO   |     | CURRENT_TIMESTAMP |                |
++-----------+--------------+------+-----+-------------------+----------------+
+
+desc Users;
++-----------+--------------+------+-----+-------------------+----------------+
+| Field     | Type         | Null | Key | Default           | Extra          |
++-----------+--------------+------+-----+-------------------+----------------+
+| id        | int(11)      | NO   | PRI | NULL              | auto_increment |
+| name      | varchar(255) | NO   |     | NULL              |                |
+| email     | varchar(255) | NO   | UNI | NULL              |                |
+| password  | varchar(255) | NO   |     | NULL              |                |
+| image     | varchar(255) | NO   |     | /avatar.png       |                |
+| isAdmin   | tinyint(1)   | NO   |     | 0                 |                |
+| createdAt | datetime     | NO   |     | CURRENT_TIMESTAMP |                |
+| updatedAt | datetime     | NO   |     | CURRENT_TIMESTAMP |                |
++-----------+--------------+------+-----+-------------------+----------------+
+
