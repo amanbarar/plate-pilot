@@ -1,9 +1,6 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
- <a href="https://github.com/matias-rivera/restobar/">
-    <img src="./logo.png" alt="Logo" width="80" height="80">
-  </a>
 
   <h3 align="center">PLATE PILOT</h3>
 
@@ -40,10 +37,7 @@
 
 ## About the Project
 
-![]()
-
 Restaurant Management App made with NodeJS, Express, MySQL, ReactJS and Redux.
-
 
 ### Built With
 
@@ -130,7 +124,6 @@ There are two ways to start this project. The first one which needs some configu
     ```
 4. It should start at "localhost:3000".
 
-
 <!-- ACKNOWLEDGEMENTS -->
 
 ## Acknowledgements
@@ -145,4 +138,3 @@ There are two ways to start this project. The first one which needs some configu
 -   [axios](https://github.com/axios/axios)
 -   [font awesome](https://fontawesome.com)
 -   [create-react-app](https://github.com/facebook/create-react-app)
-
