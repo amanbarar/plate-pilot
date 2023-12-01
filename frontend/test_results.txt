@@ -1,0 +1,42 @@
+
+> frontend@0.1.0 test
+> react-scripts test
+
+
+PASS src/reducers/__tests__/table/tableAllReducer.test.js
+PASS src/reducers/__tests__/user/userListReducer.test.js
+PASS src/reducers/__tests__/order/orderListReducer.test.js
+PASS src/reducers/__tests__/table/tableListReducer.test.js
+PASS src/reducers/__tests__/category/categoryListReducer.test.js
+PASS src/reducers/__tests__/product/productListReducer.test.js
+PASS src/reducers/__tests__/client/clientListReducer.test.js
+PASS src/reducers/__tests__/order/orderUpdateReducer.test.js
+PASS src/reducers/__tests__/category/categoryCreateReducer.test.js
+PASS src/actions/__tests___/category/deleteCategory.test.js
+PASS src/actions/__tests___/category/listCategories.test.js
+PASS src/reducers/__tests__/order/orderDetailsReducer.test.js
+PASS src/actions/__tests___/category/createCategory.test.js
+PASS src/reducers/__tests__/user/userUpdateReducer.test.js
+PASS src/reducers/__tests__/user/userDetailsReducer.test.js
+PASS src/reducers/__tests__/user/userRegisterReducer.test.js
+PASS src/actions/__tests___/category/updateCategory.test.js (5.25s)
+PASS src/reducers/__tests__/user/userLoginReducer.test.js
+PASS src/reducers/__tests__/table/tableCreateReducer.test.js
+PASS src/reducers/__tests__/client/clientDetailsReducer.test.js
+PASS src/reducers/__tests__/table/tableUpdateReducer.test.js
+PASS src/reducers/__tests__/product/productCreateReducer.test.js
+PASS src/reducers/__tests__/product/productUpdateReducer.test.js
+PASS src/actions/__tests___/category/listCategoriesDetails.test.js (5.539s)
+PASS src/reducers/__tests__/category/categoryDetailsReducer.test.js
+PASS src/reducers/__tests__/table/tableDetailsReducer.test.js
+PASS src/reducers/__tests__/client/clientUpdateReducer.test.js
+PASS src/reducers/__tests__/client/clientCreateReducer.test.js
+PASS src/reducers/__tests__/product/productDetailsReducer.test.js
+PASS src/reducers/__tests__/order/orderCreateReducer.test.js
+PASS src/reducers/__tests__/category/categoryUpdateReducer.test.js
+
+Test Suites: 31 passed, 31 total
+Tests:       139 passed, 139 total
+Snapshots:   0 total
+Time:        8.289s
+Ran all test suites.
