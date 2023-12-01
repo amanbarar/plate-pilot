@@ -112,7 +112,7 @@ exports.getUsers = asyncHandler(async (req, res) => {
   const count = await User.count({});
   const users = await User.findAll({});
 
-  res.staus(200).json({ users, page, pages: Math.ceil(count / pageSize) });
+  res.json({ users, page, pages: Math.ceil(count / pageSize) });
 });
 
 //@desc     Update user
