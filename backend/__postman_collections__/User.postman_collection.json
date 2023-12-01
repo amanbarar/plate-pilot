@@ -1,0 +1,510 @@
+{
+	"info": {
+		"_postman_id": "f8a829b7-8884-4f6b-93f0-9065894cb94a",
+		"name": "User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26508684"
+	},
+	"item": [
+		{
+			"name": "Create a user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for a successful registration\r",
+							"pm.test(\"Status code is 201 Created\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains user details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"    pm.response.to.have.jsonBody(\"email\");\r",
+							"    pm.response.to.have.jsonBody(\"isAdmin\");\r",
+							"});\r",
+							"\r",
+							"// Test for a failed registration (user already exists)\r",
+							"pm.test(\"Status code is 400 Bad Request\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains an error message\r",
+							"pm.test(\"Response contains error message\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"message\", \"User already exists\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "jwt",
+					"jwt": {
+						"algorithm": "HS256",
+						"isSecretBase64Encoded": false,
+						"payload": "{}",
+						"addTokenTo": "header",
+						"headerPrefix": "Bearer",
+						"queryParamKey": "token",
+						"header": "{}"
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Test User 1\",\r\n  \"email\": \"testuser1@test.com\",\r\n  \"password\": \"secretpassword\",\r\n  \"isAdmin\": false\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseURL}}/api/users"
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains user details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"_id\");\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"    pm.response.to.have.jsonBody(\"email\");\r",
+							"    pm.response.to.have.jsonBody(\"isAdmin\");\r",
+							"    pm.response.to.have.jsonBody(\"image\");\r",
+							"    pm.response.to.have.jsonBody(\"token\");\r",
+							"});\r",
+							"\r",
+							"// Test for invalid email or password\r",
+							"pm.test(\"Status code is 401 Invalid email or password\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"admin@example.com\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/users/login",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "admin@example.com",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains user details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"_id\");\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"    pm.response.to.have.jsonBody(\"email\");\r",
+							"    pm.response.to.have.jsonBody(\"isAdmin\");\r",
+							"    pm.response.to.have.jsonBody(\"image\");\r",
+							"    pm.response.to.have.jsonBody(\"token\");\r",
+							"});\r",
+							"\r",
+							"// Test for invalid email or password\r",
+							"pm.test(\"Status code is 401 Invalid email or password\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Test User 1\",\r\n  \"email\": \"testuser1@test.com\",\r\n  \"password\": \"secretpassword\",\r\n  \"isAdmin\": false\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseURL}}/api/users/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains user details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"    pm.response.to.have.jsonBody(\"email\");\r",
+							"    pm.response.to.have.jsonBody(\"image\");\r",
+							"    pm.response.to.have.jsonBody(\"isAdmin\");\r",
+							"    pm.response.to.have.jsonBody(\"createdAt\");\r",
+							"    pm.response.to.have.jsonBody(\"updatedAt\");\r",
+							"});\r",
+							"\r",
+							"// Test for invalid email or password\r",
+							"pm.test(\"Status code is 404 user not found\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/users/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains user details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"    pm.response.to.have.jsonBody(\"email\");\r",
+							"    pm.response.to.have.jsonBody(\"image\");\r",
+							"    pm.response.to.have.jsonBody(\"isAdmin\");\r",
+							"    pm.response.to.have.jsonBody(\"createdAt\");\r",
+							"    pm.response.to.have.jsonBody(\"updatedAt\");\r",
+							"    pm.response.to.have.jsonBody(\"password\");\r",
+							"});\r",
+							"\r",
+							"// Test for invalid email or password\r",
+							"pm.test(\"Status code is 404 user not found\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Updated Name 1\",\r\n  \"email\": \"updated.email@example.com\",\r\n  \"password\": \"updatedpassword\",\r\n  \"isAdmin\": false,\r\n  \"avatar\": true\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/users/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user profile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains user details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"    pm.response.to.have.jsonBody(\"email\");\r",
+							"    pm.response.to.have.jsonBody(\"password\");\r",
+							"    pm.response.to.have.jsonBody(\"image\");\r",
+							"    pm.response.to.have.jsonBody(\"isAdmin\");\r",
+							"    pm.response.to.have.jsonBody(\"createdAt\");\r",
+							"    pm.response.to.have.jsonBody(\"updatedAt\");\r",
+							"});\r",
+							"\r",
+							"// Test for invalid email or password\r",
+							"pm.test(\"Status code is 404 user not found\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Updated Name\",\r\n  \"email\": \"updated.email@example.com\",\r\n  \"password\": \"updatedpassword\",\r\n  \"passwordCheck\": \"updatedpassword\",\r\n  \"image\": \"new_avatar_url.jpg\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/users/profile/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"profile",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for invalid id\r",
+							"pm.test(\"Status code is 404 user not found\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/users/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains user details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"users\");\r",
+							"    pm.response.to.have.jsonBody(\"page\");\r",
+							"    pm.response.to.have.jsonBody(\"pages\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/users?pageNumber&keyword",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": null
+						},
+						{
+							"key": "keyword",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

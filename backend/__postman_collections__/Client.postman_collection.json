@@ -1,0 +1,304 @@
+{
+	"info": {
+		"_postman_id": "cdf80c4f-988d-46c7-91a5-9d4b26e8d7b7",
+		"name": "Client",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26508684"
+	},
+	"item": [
+		{
+			"name": "Create client",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for a successful registration\r",
+							"pm.test(\"Status code is 201 Created\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains client details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"    pm.response.to.have.jsonBody(\"address\");\r",
+							"    pm.response.to.have.jsonBody(\"phone\");\r",
+							"    pm.response.to.have.jsonBody(\"email\");\r",
+							"    pm.response.to.have.jsonBody(\"dni\");\r",
+							"    pm.response.to.have.jsonBody(\"updatedAt\");\r",
+							"    pm.response.to.have.jsonBody(\"createdAt\");\r",
+							"});\r",
+							"\r",
+							"// Test for a failed registration (client already exists)\r",
+							"pm.test(\"Status code is 400 Bad Request\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"New Client\",\r\n  \"address\": \"Client Address\",\r\n  \"phone\": \"1234567890\",\r\n  \"email\": \"client@example.com\",\r\n  \"dni\": \"12345678A\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseURL}}/api/clients"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all clients",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains client details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"clients\");\r",
+							"    pm.response.to.have.jsonBody(\"page\");\r",
+							"    pm.response.to.have.jsonBody(\"pages\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/clients?pageNumber&keyword=",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"clients"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": null
+						},
+						{
+							"key": "keyword",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get client by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains client details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"    pm.response.to.have.jsonBody(\"createdAt\");\r",
+							"    pm.response.to.have.jsonBody(\"updatedAt\");\r",
+							"});\r",
+							"\r",
+							"// Test for invalid id\r",
+							"pm.test(\"Status code is 404 client not found\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/clients/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"clients",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update client by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains client details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"    pm.response.to.have.jsonBody(\"address\");\r",
+							"    pm.response.to.have.jsonBody(\"phone\");\r",
+							"    pm.response.to.have.jsonBody(\"email\");\r",
+							"    pm.response.to.have.jsonBody(\"dni\");\r",
+							"    pm.response.to.have.jsonBody(\"createdAt\");\r",
+							"    pm.response.to.have.jsonBody(\"updatedAt\");\r",
+							"});\r",
+							"\r",
+							"// Test for invalid id\r",
+							"pm.test(\"Status code is 404 client not found\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Updated Client Name\",\r\n  \"address\": \"Updated Address\",\r\n  \"phone\": \"9876543210\",\r\n  \"email\": \"updated_client@example.com\",\r\n  \"dni\": \"87654321B\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/clients/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"clients",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete client by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for invalid id\r",
+							"pm.test(\"Status code is 404 client not found\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/clients/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"clients",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

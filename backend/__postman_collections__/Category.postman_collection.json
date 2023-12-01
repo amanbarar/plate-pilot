@@ -1,0 +1,341 @@
+{
+	"info": {
+		"_postman_id": "b129c7fb-61d3-4a07-bb59-a701139ceee1",
+		"name": "Category",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26508684"
+	},
+	"item": [
+		{
+			"name": "Create category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for a successful registration\r",
+							"pm.test(\"Status code is 201 Created\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains user details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"    pm.response.to.have.jsonBody(\"updatedAt\");\r",
+							"    pm.response.to.have.jsonBody(\"createdAt\");\r",
+							"});\r",
+							"\r",
+							"// Test for bad request\r",
+							"pm.test(\"Status code is 400 Bad Request\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"New Category\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseURL}}/api/categories"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all categories",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains category details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"categories\");\r",
+							"    pm.response.to.have.jsonBody(\"page\");\r",
+							"    pm.response.to.have.jsonBody(\"pages\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/categories/?pageNumber=&keyword=",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"categories",
+						""
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": ""
+						},
+						{
+							"key": "keyword",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get category by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains category details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"    pm.response.to.have.jsonBody(\"createdAt\");\r",
+							"    pm.response.to.have.jsonBody(\"updatedAt\");\r",
+							"});\r",
+							"\r",
+							"// Test for invalid id\r",
+							"pm.test(\"Status code is 404 user not found\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/categories/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"categories",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update category by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains category details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"    pm.response.to.have.jsonBody(\"createdAt\");\r",
+							"    pm.response.to.have.jsonBody(\"updatedAt\");\r",
+							"});\r",
+							"\r",
+							"// Test for invalid id\r",
+							"pm.test(\"Status code is 404 category not found\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Updated Category Name\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/categories/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"categories",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete category by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for invalid id\r",
+							"pm.test(\"Status code is 404 category not found\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/categories/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"categories",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "jwt",
+		"jwt": {
+			"algorithm": "HS256",
+			"isSecretBase64Encoded": false,
+			"payload": "{}",
+			"addTokenTo": "header",
+			"headerPrefix": "Bearer",
+			"queryParamKey": "token",
+			"header": "{}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

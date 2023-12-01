@@ -1,0 +1,307 @@
+{
+	"info": {
+		"_postman_id": "c2e49d18-9680-4e31-b982-f5c0b214fafe",
+		"name": "Product",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26508684"
+	},
+	"item": [
+		{
+			"name": "Create product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for a successful registration\r",
+							"pm.test(\"Status code is 200 success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains product details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"    pm.response.to.have.jsonBody(\"price\");\r",
+							"    pm.response.to.have.jsonBody(\"stock\");\r",
+							"    pm.response.to.have.jsonBody(\"categoryId\");\r",
+							"    pm.response.to.have.jsonBody(\"updatedAt\");\r",
+							"    pm.response.to.have.jsonBody(\"createdAt\");\r",
+							"});\r",
+							"\r",
+							"// Test for product not found\r",
+							"pm.test(\"Status code is 404 product Not found\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"New Product\",\r\n  \"price\": 20.99,\r\n  \"stock\": 50,\r\n  \"categoryId\": 1\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseURL}}/api/products/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains product details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"products\");\r",
+							"    pm.response.to.have.jsonBody(\"page\");\r",
+							"    pm.response.to.have.jsonBody(\"pages\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/products/?pageNumber=1&keyword",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"products",
+						""
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "1"
+						},
+						{
+							"key": "keyword",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get product by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains product details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"    pm.response.to.have.jsonBody(\"price\");\r",
+							"    pm.response.to.have.jsonBody(\"stock\");\r",
+							"    pm.response.to.have.jsonBody(\"categoryId\");\r",
+							"    pm.response.to.have.jsonBody(\"createdAt\");\r",
+							"    pm.response.to.have.jsonBody(\"updatedAt\");\r",
+							"    pm.response.to.have.jsonBody(\"category\");\r",
+							"});\r",
+							"\r",
+							"// Test for invalid id\r",
+							"pm.test(\"Status code is 404 product not found\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/products/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"products",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update product by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for checking if the response contains product details\r",
+							"pm.test(\"Response contains user details\", function () {\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"    pm.response.to.have.jsonBody(\"price\");\r",
+							"    pm.response.to.have.jsonBody(\"stock\");\r",
+							"    pm.response.to.have.jsonBody(\"categoryId\");\r",
+							"    pm.response.to.have.jsonBody(\"createdAt\");\r",
+							"    pm.response.to.have.jsonBody(\"updatedAt\");\r",
+							"});\r",
+							"\r",
+							"// Test for invalid id\r",
+							"pm.test(\"Status code is 404 product not found\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Updated Product Name\",\r\n  \"price\": 25.99,\r\n  \"stock\": 60,\r\n  \"category\": 2\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/products/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"products",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete product by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for success\r",
+							"pm.test(\"Status code is 200 Success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test for invalid id\r",
+							"pm.test(\"Status code is 404 product not found\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/products/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"products",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
